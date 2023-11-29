@@ -1,0 +1,17 @@
+{% extends 'images/base.html' %}
+
+{% block content %}
+    <h1>Slike</h1>
+    <div>
+        {% for image in images %}
+            <div>
+                <a href="{% url 'images:detail' image.id %}">
+                    <p>{{ image.title }}</p>
+                </a>
+                <img src="{{ image.url }}" style="width: 150px;">
+                <p>{{ image.desc }}</p>
+            </div>
+        {% endfor %}    
+    </div>
+{% endblock content %}
+    

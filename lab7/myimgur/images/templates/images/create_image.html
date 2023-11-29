@@ -1,0 +1,21 @@
+{% extends 'images/base.html' %}
+
+{% block content %}
+<div>
+    <h1>Dodaj novu sliku</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="title"></label>
+        <input type="text" name="title" id="title">
+        <label for="url">url</label>
+        <input type="text" name="url" id="url">
+        <label for="desc">desc</label>
+        <input type="text" name="desc" id="desc">
+        <label for="pub_date">pub_date</label>
+        <input type="date" name="pub_date" id="pub_date">
+        <input type="submit" value="Submit images">
+
+    </form>
+</div>
+
+{% endblock content %}
