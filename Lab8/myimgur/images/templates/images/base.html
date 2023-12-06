@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <a href="/">Home</a>
+        <a href="{% url 'images:list'%}">Slike</a>
+        <a href="{% url 'images:create'%}">Dodaj sliku</a>
+        {% if request.user.is_authenticated %}
+        {{request.user.username}}
+        <a href="{% url 'logout' %}">Odjavi se</a>
+        {% else %}
+        <a href="{% url 'login' %}">Prijavi se</a>
+        {% endif %}
+
+        {% if request.user.is_superuser %}
+        <a href="/admin">Admin dashboard</a>
+        {% endif %}
+    </div>
+    <h1>My images</h1>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

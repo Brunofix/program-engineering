@@ -1,0 +1,44 @@
+{% extends 'images/base.html' %}
+
+{% block content %}
+    <h1>{{ image.title }}
+        (Likes: {{ image.like_set.count }})
+    </h1>
+    
+    <a href="{% url 'images:toggle_like' image.id %}">Like</a>
+    <div>
+        {% if is_liked %}
+        <a href="{% url 'images:toggle_like' image.id %}">Unlike</a>
+
+        {% else %}
+        <a href="{% url 'images:toggle_like' image.id %}">Like</a>
+        {% endif %}
+        <div>
+            <img src="{{ image.url }}" style="width: 150px;">
+            <p>{{ image.desc }}</p>
+        </div>
+        <div>
+            <h1>Komentari</h1>
+            {% for comment in comments %}
+                <div>
+                    <h1>Dodaj komentar</h1>
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'images:create_comment' image.id %}" method="POST">
+                        {% csrf_token %}
+                        <label for="">Comment</label><br>
+                        <textarea name="content" id="" cols="30" rows="10"></textarea><br>
+                        <input type="submit"value="Pošalji komentar"><br>
+                    </form>
+                    {% else %}
+                    <p>Moraš biti prijavljen za komentiranje</p>
+                    <a href="{% url 'login' %}">Prijavi se</a>
+                    {% endif %}
+                    <p><strong>{{ comment.author}}</strong></p>
+                    <p>{{ comment.contet}}</p>
+                    <p><small>{{ comment.created_at}}</small></p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+    
